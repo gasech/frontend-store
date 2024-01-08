@@ -1,10 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Frontend Store
+Frontend store is an application that lets you authenticate with GitHub, add products, list all of them, and checkout from cart. You can access the [application demo](https://frontend-store-xi.vercel.app/) deployed in Vercel. 
 
-## Getting Started
+## Screenshots
 
-First, run the development server:
+<!-- vim-markdown-toc Marked -->
 
-```bash
+* [Stack](#stack)
+* [Routes](#routes)
+* [Project Structure](#project-structure)
+* [Developing](#developing)
+  * [Getting Started](#getting-started)
+  * [Setting Up GitHub Auth](#setting-up-github-auth)
+* [Testing](#testing)
+
+<!-- vim-markdown-toc -->
+
+## Stack
+- TypeScript
+- Next.JS 14.0.4
+- Next Auth ^4.25.5
+- Tailwind ^3.3.0
+- Shadcn
+- ESLint for linting
+- Prettier for formatting 
+
+## Routes
+- `/login` - Login  
+- `/` - List Products
+- `/add-product` - Add Product (if you are not authenticated this should redirect you to `/login`)
+
+If you try to checkout your items without being logged in, the app should redirect you to `/login`. This is not related to routes, but also important to know.
+
+## Project Structure
+This project is using the optional application `src/` folder and the app router feature from Next.js.
+
+```
+. 📁
+├── 📁 public
+└── 📁 src
+   ├── 📁 app
+   │  ├── 📁 auth
+   │  │  ├── 📁 [...nextauth]
+   │  │  └── 📁 login
+   │  └── 📁 login
+   ├── 📁 components
+   │  └── 📁 ui
+   └── 📁 lib
+```
+
+## Developing 
+
+### Getting Started
+
+```bash 
+# First clone the repository
+https://github.com/gasech/frontend-store.git
+cd frontend-store
+
+# Install the dependencies
+npm install 
+
+# Run the project
 npm run dev
 # or
 yarn dev
@@ -16,21 +72,7 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Setting Up GitHub Auth
+If you followed all the steps so far, you should get an error because the enviroments variables are not setup, to solve that please follow the next steps:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Testing
