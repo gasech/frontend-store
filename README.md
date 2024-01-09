@@ -11,6 +11,7 @@ Frontend store is an application that lets you authenticate with GitHub, add pro
 * [Developing](#developing)
   * [Getting Started](#getting-started)
   * [Setting Up GitHub Auth](#setting-up-github-auth)
+  * [Running the application](#running-the-application)
 * [Testing](#testing)
 
 <!-- vim-markdown-toc -->
@@ -23,6 +24,7 @@ Frontend store is an application that lets you authenticate with GitHub, add pro
 - Shadcn
 - ESLint for linting
 - Prettier for formatting 
+- Rustywind for formatting tailwind classes
 
 ## Routes
 - `/login` - Login  
@@ -35,21 +37,23 @@ If you try to checkout your items without being logged in, the app should redire
 This project is using the optional application `src/` folder and the app router feature from Next.js.
 
 ```
-. 📁
+📁 frontend-store
 ├── 📁 public
 └── 📁 src
    ├── 📁 app
-   │  ├── 📁 auth
-   │  │  ├── 📁 [...nextauth]
+   │  ├── 📁 (auth)
    │  │  └── 📁 login
-   │  └── 📁 login
-   ├── 📁 components
+   │  ├──  📁(routes)
+   │  └── 📁 auth
+   │     ├── 📁 [...nextauth]
+   │     └── 📁 login
+   ├─ 📁 components
    │  └── 📁 ui
+   ├── 📁 context
    └── 📁 lib
 ```
 
 ## Developing 
-
 ### Getting Started
 
 ```bash 
@@ -60,7 +64,15 @@ cd frontend-store
 # Install the dependencies
 npm install 
 
-# Run the project
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+### Setting Up GitHub Auth
+If you run the project now, you should get an error because the enviroments variables are not setup, before that follow the next steps:
+
+### Running the application
+```bash
 npm run dev
 # or
 yarn dev
@@ -69,10 +81,5 @@ pnpm dev
 # or
 bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-### Setting Up GitHub Auth
-If you followed all the steps so far, you should get an error because the enviroments variables are not setup, to solve that please follow the next steps:
 
 ## Testing
