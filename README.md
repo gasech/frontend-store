@@ -63,10 +63,7 @@ cd frontend-store
 
 # Install the dependencies
 npm install 
-
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ### Setting Up GitHub Auth
 If you run the project now, you should get an error because the enviroments variables are not setup, before that follow the next steps:
@@ -81,5 +78,7 @@ pnpm dev
 # or
 bun dev
 ```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Testing
