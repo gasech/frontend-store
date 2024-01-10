@@ -1,5 +1,5 @@
 # Frontend Store
-Frontend store is an application that lets you authenticate with GitHub, add products, list all of them, and checkout from cart. You can access the [application demo](https://frontend-store-xi.vercel.app/) deployed in Vercel. 
+Frontend store is an application that lets you authenticate with Google and GitHub, add products, list all of them, and checkout from cart. You can access the [application demo](https://frontend-store-xi.vercel.app/) deployed in Vercel. 
 
 ## Screenshots
 
@@ -11,7 +11,7 @@ Frontend store is an application that lets you authenticate with GitHub, add pro
   * [Structure](#structure)
 * [Developing](#developing)
   * [Getting Started](#getting-started)
-  * [Setting Up GitHub Auth](#setting-up-github-auth)
+  * [Setting Up Next Auth](#setting-up-next-auth)
   * [Running the application](#running-the-application)
 * [Testing](#testing)
 
@@ -34,7 +34,8 @@ Frontend store is an application that lets you authenticate with GitHub, add pro
 - `/login` - Login  
 - `/add-product` - Add Product (if you are not authenticated this should redirect you to `/login`)
 
-If you try to checkout your items without being logged in, the app should redirect you to `/login`. This is not related to routes, but also important to know.
+> [!NOTE]
+> If you try to checkout your items without being logged in, the app should redirect you to `/login` so you can proceed.
 
 ### Structure
 This project is using the optional application `src/` folder and the app router feature from Next.js.
@@ -42,18 +43,20 @@ This project is using the optional application `src/` folder and the app router 
 ```
 📁 frontend-store
 ├── 📁 public
+│  └── 📁 icons
 └── 📁 src
    ├── 📁 app
    │  ├── 📁 (auth)
    │  │  └── 📁 login
-   │  ├──  📁(routes)
-   │  └── 📁 auth
-   │     ├── 📁 [...nextauth]
-   │     └── 📁 login
-   ├─ 📁 components
+   │  ├── 📁 (routes)
+   │  │  └── 📁 add-product
+   │  └── 📁 api
+   │     └── 📁 auth
+   │        └── 📁 [...nextauth]
+   ├── 📁 components
    │  └── 📁 ui
-   ├── 📁 context
-   └── 📁 lib
+   ├── 📁 lib
+   └── 📁 providers
 ```
 
 ## Developing 
@@ -68,8 +71,27 @@ cd frontend-store
 npm install 
 ```
 
-### Setting Up GitHub Auth
-If you run the project now, you should get an error because the enviroments variables are not setup, before that follow the next steps:
+### Setting Up Next Auth 
+If you run the project now, you should get an error because the enviroments variables are not setup, before that follow the next steps
+- Setting up [Google](https://console.developers.google.com/apis/credentials)
+- Setting up [GitHub](https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps)
+Please refer to both of these docs to get the OAuth apps going, then create a file in the root of the project named `.env`
+
+```.env
+NEXTAUTH_URL="http://localhost:3000" 
+NEXTAUTH_SECRET="READ_BELOW"
+
+GITHUB_CLIENT_ID="YOUR_GITHUB_CLIENT_ID"
+GITHUB_CLIENT_SECRET="YOUR_GITHUB_CLIENT_SECRET"
+
+GOOGLE_CLIENT_ID="YOUR_GOOGLE_CLIENT_ID"
+GOOGLE_CLIENT_SECRET="YOUR_GOOGLE_CLIENT_SECRET"
+```
+
+in `NEXTAUTH_SECRET` you should add a hash. This is used to encrypt the NextAuth.js JWT, and to hash email verification tokens. 
+
+> [!NOTE]
+> Remember to add these enviroment variables to the vercel application dashboard if you pretend to deploy this app.
 
 ### Running the application
 ```bash
