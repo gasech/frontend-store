@@ -5,9 +5,10 @@ Frontend store is an application that lets you authenticate with GitHub, add pro
 
 <!-- vim-markdown-toc Marked -->
 
-* [Stack](#stack)
-* [Routes](#routes)
-* [Project Structure](#project-structure)
+* [Project Architecture](#project-architecture)
+  * [Stack](#stack)
+  * [Routes](#routes)
+  * [Structure](#structure)
 * [Developing](#developing)
   * [Getting Started](#getting-started)
   * [Setting Up GitHub Auth](#setting-up-github-auth)
@@ -16,7 +17,9 @@ Frontend store is an application that lets you authenticate with GitHub, add pro
 
 <!-- vim-markdown-toc -->
 
-## Stack
+## Project Architecture
+
+### Stack
 - TypeScript
 - Next.JS 14.0.4
 - Next Auth ^4.25.5
@@ -26,14 +29,14 @@ Frontend store is an application that lets you authenticate with GitHub, add pro
 - Prettier for formatting 
 - Rustywind for formatting tailwind classes
 
-## Routes
-- `/login` - Login  
+### Routes
 - `/` - List Products
+- `/login` - Login  
 - `/add-product` - Add Product (if you are not authenticated this should redirect you to `/login`)
 
 If you try to checkout your items without being logged in, the app should redirect you to `/login`. This is not related to routes, but also important to know.
 
-## Project Structure
+### Structure
 This project is using the optional application `src/` folder and the app router feature from Next.js.
 
 ```
