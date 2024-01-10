@@ -72,10 +72,11 @@ npm install
 ```
 
 ### Setting Up Next Auth 
-If you run the project now, you should get an error because the enviroments variables are not setup, before that follow the next steps
+If you run the project now, you should get an error while logging in because the enviroments variables are not setup, you can refer to both of these docs to get the OAuth apps going:
 - Setting up [Google](https://console.developers.google.com/apis/credentials)
 - Setting up [GitHub](https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps)
-Please refer to both of these docs to get the OAuth apps going, then create a file in the root of the project named `.env`
+
+After you setup Google and GitHub, you should have access to the CLIENT_SECRET and CLIENT_ID of both, so create a file in the root of the project named `.env`:
 
 ```.env
 NEXTAUTH_URL="http://localhost:3000" 
