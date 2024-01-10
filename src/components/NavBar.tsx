@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -21,9 +23,10 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const NavBar = () => {
-  let loggedIn = true;
+  const { data: session } = useSession();
 
   return (
     <nav className="flex justify-between p-6 px-32 w-full">
@@ -32,18 +35,18 @@ const NavBar = () => {
       </Link>
       <div className="flex gap-4 items-center">
         <CartDrawer />
-        {loggedIn ? (
+        {session ? (
           <Button variant="outline">
             {" "}
             <PlusIcon className="mr-2 w-4 h-4" />{" "}
             <Link href="/add-product">Add Product</Link>
           </Button>
         ) : null}
-        {loggedIn ? (
+        {session ? (
           <ProfileDropdown />
         ) : (
-          <Button variant="outline" asChild>
-            <Link href="/login">Login</Link>
+          <Button variant="outline" onClick={() => signIn()}>
+            Login
           </Button>
         )}
       </div>
@@ -52,20 +55,29 @@ const NavBar = () => {
 };
 
 const ProfileDropdown = () => {
+  const { data: session } = useSession();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarImage src={session?.user?.image ?? ""} />
           <AvatarFallback>
             <Skeleton className="h-10 rounded-full w-10w" />
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>
+          <p>{session?.user?.name}</p>
+          <span className="font-medium text-gray-500">
+            {session?.user?.email}
+          </span>
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Logout</DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer" onClick={() => signOut()}>
+          Logout
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
