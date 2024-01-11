@@ -14,7 +14,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function Home() {
   return (
     <main className="flex flex-row gap-8 justify-between p-14 mx-auto min-h-screen max-w-[1300px]">
-      <Card className="h-fit">
+      <Card className="border-white border-none h-fit">
         <CardHeader>
           <CardTitle>Product Filter</CardTitle>
           <CardDescription>
@@ -55,7 +55,7 @@ export default function Home() {
 
 const ProductCard = () => {
   return (
-    <Card className="h-fit">
+    <Card className="h-92">
       <CardHeader>
         <Skeleton className="mb-2 w-full h-32" />
         <CardTitle>Product Name</CardTitle>
@@ -65,7 +65,7 @@ const ProductCard = () => {
         <span className="text-4xl font-medium leading-none">200$</span>
       </CardContent>
       <CardFooter>
-        <Button className="w-full">Buy</Button>
+        <Button className="w-full">Add to Cart</Button>
       </CardFooter>
     </Card>
   );
