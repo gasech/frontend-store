@@ -72,7 +72,7 @@ npm install
 ```
 
 ### Setting Up Next Auth 
-If you run the project now, you should get an error while logging in because the enviroments variables are not setup, you can refer to both of these docs to get the OAuth apps going:
+If you run the project now, you should get an error while logging in because the environments variables are not setup, you can refer to both of these docs to get the OAuth apps going:
 - Setting up [Google](https://console.developers.google.com/apis/credentials)
 - Setting up [GitHub](https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps)
 
@@ -92,7 +92,7 @@ GOOGLE_CLIENT_SECRET="YOUR_GOOGLE_CLIENT_SECRET"
 in `NEXTAUTH_SECRET` you should add a hash. This is used to encrypt the NextAuth.js JWT, and to hash email verification tokens. 
 
 > [!NOTE]
-> Remember to add these enviroment variables to the vercel application dashboard if you pretend to deploy this app.
+> Remember to add these environment variables to the vercel application dashboard if you pretend to deploy this app.
 
 ### Running the application
 ```bash
