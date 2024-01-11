@@ -23,13 +23,14 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 
 const NavBar = () => {
   const { data: session } = useSession();
 
   return (
-    <nav className="flex justify-between p-6 px-32 w-full">
+    <nav className="flex justify-between p-6 px-32 w-full shadow-2xl">
       <Link href="/" className="text-3xl font-bold">
         Frontend Store
       </Link>
@@ -45,8 +46,8 @@ const NavBar = () => {
         {session ? (
           <ProfileDropdown />
         ) : (
-          <Button variant="outline" onClick={() => signIn()}>
-            Login
+          <Button>
+            <Link href="/login">Login</Link>
           </Button>
         )}
       </div>
@@ -84,17 +85,19 @@ const ProfileDropdown = () => {
 };
 
 const CartDrawer = () => {
-  let cartItems = 3;
+  let cartItems = 0;
 
   return (
     <Drawer>
       <DrawerTrigger>
         <Button variant="outline" asChild>
           <div>
-            <img
+            <Image
               src="/icons/cart.svg"
               alt="Cart Icon"
-              className="mr-2 w-4 h-4"
+              className="mr-2"
+              width={16}
+              height={16}
             />
             <span>{cartItems}</span>
           </div>
