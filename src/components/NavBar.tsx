@@ -30,7 +30,7 @@ const NavBar = () => {
   const { data: session } = useSession();
 
   return (
-    <nav className="flex justify-between p-6 px-32 w-full shadow-2xl">
+    <nav className="flex justify-between p-6 px-32 w-full shadow-md">
       <Link href="/" className="text-3xl font-bold">
         Frontend Store
       </Link>
