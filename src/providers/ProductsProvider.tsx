@@ -55,7 +55,7 @@ const ProductsProvider = ({ children }: { children: React.ReactNode }) => {
 
     try {
       setProducts(newProducts);
-      localStorage.setItem("cart", JSON.stringify(newProducts));
+      localStorage.setItem("products", JSON.stringify(newProducts));
     } catch (err) {
       console.error(err);
 
