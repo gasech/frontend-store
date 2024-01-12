@@ -21,44 +21,44 @@ Frontend store is an application that lets you authenticate with Google and GitH
 
 ### Stack
 - TypeScript
-- Next.JS 14.0.4
-- Next Auth ^4.25.5
-- Tailwind ^3.3.0
+- Next.JS
+- Next Auth
+- TailwindCSS
 - Shadcn
 - ESLint for linting
 - Prettier for formatting 
-- Rustywind for formatting tailwind classes
+- Rustywind to organize and remove duplicated tailwind classes
 
 ### Routes
-- `/` - List Products
-- `/login` - Login  
+- `/` - List and filter products
+- `/login` - Login with Google or Github 
 - `/add-product` - Add Product (if you are not authenticated this should redirect you to `/login`)
 
 > [!NOTE]
 > If you try to checkout your items without being logged in, the app should redirect you to `/login` so you can proceed.
 
 ### Structure
-This project is using the optional application `src/` folder and the app router feature from Next.js.
+This project is using the optional `src/` folder and the app router feature from Next.js.
 
 ```
-📁frontend-store
-├── 📁public
-│  └── 📁icons
-└── 📁src
-   ├── 📁app
-   │  ├── 📁(auth)
-   │  │  └── 📁login
-   │  ├── 📁(routes)
-   │  │  └── 📁add-product
-   │  └── 📁api
-   │     └── 📁auth
-   │        └── 📁[...nextauth]
-   ├── 📁components
-   │  ├── 📁add-product
-   │  ├── 📁login
-   │  └── 📁ui
-   ├── 📁lib
-   └── 📁providers
+📁 frontend-store
+├── 📁 public
+│  └── 📁 icons
+└── 📁 src
+   ├── 📁 app
+   │  ├── 📁 (auth)
+   │  │  └── 📁 login
+   │  ├── 📁 (routes)
+   │  │  └── 📁 add-product
+   │  └── 📁 api
+   │     └── 📁 auth
+   │        └── 📁 [...nextauth]
+   ├── 📁 components
+   │  ├── 📁 add-product
+   │  ├── 📁 login
+   │  └── 📁 ui
+   ├── 📁 lib
+   └── 📁 providers
 ```
 
 ## Developing 
