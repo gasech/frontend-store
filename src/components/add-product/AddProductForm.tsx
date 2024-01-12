@@ -17,23 +17,32 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useProductsContext } from "@/providers/ProductsProvider";
+import { Product } from "@/lib/types";
 
 const formSchema = z.object({
-  name: z.string().min(5, {
-    message: "Product name must be at least 5 characters.",
-  }),
-  description: z.string().optional(),
-  price: z
-    .number()
-    .min(1, {
-      message: "The price must be at least 1.",
+  name: z
+    .string()
+    .min(3, {
+      message: "Product name must be at least 3 characters.",
     })
-    .positive({
-      message: "The price must be positive.",
+    .max(50, {
+      message: "Product name must be at most 50 characters.",
     }),
+  description: z
+    .string()
+    .max(200, {
+      message: "Product description must be at most 200 characters.",
+    })
+    .optional(),
+  price: z.number().min(1, {
+    message: "Product price must be a positive number higher than 1.",
+  }),
 });
 
 const AddProductForm = () => {
+  const { addProduct } = useProductsContext();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,7 +51,14 @@ const AddProductForm = () => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    let newProduct: Product = {
+      id: Math.floor(Math.random() * 1000), // This is not the best way to generate an id, and you probably shouldn't do it like this in production.
+      name: values.name,
+      description: values.description ? values.description : "",
+      price: values.price,
+    };
+
+    addProduct(newProduct);
   }
 
   return (
@@ -90,6 +106,7 @@ const AddProductForm = () => {
                   defaultValue={1}
                   placeholder=""
                   {...field}
+                  onChange={(event) => field.onChange(+event.target.value)}
                 />
               </FormControl>
               <FormMessage />

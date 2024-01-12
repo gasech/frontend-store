@@ -9,6 +9,7 @@ interface CartContextProps {
   addToCart: (product: Product) => void;
   getTotalQuantity: () => number;
   removeFromCart: (product: CartProduct) => void;
+  clearCart: () => void;
 }
 
 export const CartContext = createContext<CartContextProps>({
@@ -16,6 +17,7 @@ export const CartContext = createContext<CartContextProps>({
   addToCart: () => {},
   getTotalQuantity: () => 0,
   removeFromCart: () => {},
+  clearCart: () => {},
 });
 
 const CartProvider = ({ children }: { children: React.ReactNode }) => {
@@ -57,6 +59,8 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
       setCartItems(newCartItems);
       localStorage.setItem("cart", JSON.stringify(newCartItems));
     } catch (err) {
+      console.error(err);
+
       toast({
         variant: "destructive",
         title: "Error",
@@ -91,6 +95,24 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const clearCart = () => {
+    try {
+      setCartItems([]);
+      localStorage.setItem("cart", JSON.stringify([]));
+    } catch (err) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Error clearing cart",
+      });
+    } finally {
+      toast({
+        title: "Cleared cart",
+        description: `Cleared cart`,
+      });
+    }
+  };
+
   const getTotalQuantity = () => {
     return cartItems.reduce((acc, curr) => acc + curr.quantity, 0);
   };
@@ -100,6 +122,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
     addToCart,
     removeFromCart,
     getTotalQuantity,
+    clearCart,
   };
 
   return (
@@ -107,14 +130,14 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-const useCart = () => {
+const useCartContext = () => {
   const context = useContext(CartContext);
 
   if (!context) {
-    throw new Error("useCart must be used within a CartContextProvider");
+    throw new Error("useCart must be used within a CartProvider");
   }
 
   return context;
 };
 
-export { CartProvider, useCart };
+export { CartProvider, useCartContext };

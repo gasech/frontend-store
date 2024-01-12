@@ -6,6 +6,7 @@ import NextAuthSessionProvider from "@/providers/SessionProvider";
 import { Toaster } from "@/components/ui/toaster";
 import { CartProvider } from "@/providers/CartProvider";
 import { getServerSession } from "next-auth";
+import { ProductsProvider } from "@/providers/ProductsProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,11 +27,13 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <NextAuthSessionProvider session={session}>
-          <CartProvider>
-            <NavBar />
-            <main className="bg-blue-200">{children}</main>
-            <Toaster />
-          </CartProvider>
+          <ProductsProvider>
+            <CartProvider>
+              <NavBar />
+              <main className="bg-blue-200">{children}</main>
+              <Toaster />
+            </CartProvider>
+          </ProductsProvider>
         </NextAuthSessionProvider>
       </body>
     </html>

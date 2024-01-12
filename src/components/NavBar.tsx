@@ -24,7 +24,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { signOut, useSession } from "next-auth/react";
-import { useCart } from "@/providers/CartProvider";
+import { useCartContext } from "@/providers/CartProvider";
 import Image from "next/image";
 import {
   Table,
@@ -36,13 +36,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 const NavBar = () => {
   const { data: session } = useSession();
 
   return (
-    <nav className="flex justify-between p-6 px-32 w-full shadow-md">
-      <Link href="/" className="text-3xl font-bold">
+    <nav className="flex justify-between p-4 px-32 w-full shadow-md">
+      <Link href="/" className="text-2xl font-bold">
         Frontend Store
       </Link>
       <div className="flex gap-4 items-center">
@@ -67,7 +69,29 @@ const NavBar = () => {
 };
 
 const CartDrawer = () => {
-  const { cartItems, getTotalQuantity, removeFromCart } = useCart();
+  const { toast } = useToast();
+  const { cartItems, getTotalQuantity, removeFromCart, clearCart } =
+    useCartContext();
+  const { data: session } = useSession();
+
+  const checkout = () => {
+    if (!session)
+      return toast({
+        title: "Sign in to checkout",
+        action: <ToastAction altText="Sign in first">Login</ToastAction>,
+      });
+    if (cartItems.length === 0)
+      return toast({
+        title: "Please add some items to your cart first...",
+      });
+
+    // this can lead to a checkout page where you can pay for the items, but im just clearing the cart for now to simulate a checkout.
+    clearCart();
+
+    toast({
+      title: "Sucessfully checked out!",
+    });
+  };
 
   return (
     <Drawer>
@@ -81,18 +105,16 @@ const CartDrawer = () => {
               width={16}
               height={16}
             />
-            <span>Cart - {getTotalQuantity()}</span>
+            <span>{getTotalQuantity()}</span>
           </div>
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle className="mx-auto w-1/3">
-            Cart - {getTotalQuantity()}
-          </DrawerTitle>
-          <DrawerDescription></DrawerDescription>
+        <DrawerHeader className="mx-auto w-2/3">
+          <DrawerTitle>Cart - {getTotalQuantity()}</DrawerTitle>
+          <DrawerDescription>Manage your cart.</DrawerDescription>
         </DrawerHeader>
-        <div className="p-4 mx-auto w-1/3 text-center">
+        <div className="p-4 mx-auto w-2/3 text-center">
           {cartItems.length > 0 ? (
             <Table>
               <TableHeader>
@@ -129,11 +151,13 @@ const CartDrawer = () => {
               </TableBody>
             </Table>
           ) : (
-            <p>Your cart is empty.</p>
+            <p className="text-sm text-gray-500">Your cart is empty.</p>
           )}
         </div>
         <DrawerFooter>
-          <Button className="mx-auto w-1/3">Checkout</Button>
+          <Button className="mx-auto w-1/3" onClick={checkout}>
+            Checkout
+          </Button>
           <DrawerClose>
             <Button variant="outline" className="mx-auto w-1/3">
               Cancel

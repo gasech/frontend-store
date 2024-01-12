@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import SignInButton from "@/components/login/SignInButton";
+import SignInButton from "@/app/(auth)/login/_signInButton";
 
 export default async function LoginPage() {
   const session = await getServerSession();

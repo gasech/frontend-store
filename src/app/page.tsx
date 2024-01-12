@@ -17,9 +17,10 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { useState } from "react";
-import { useCart } from "@/providers/CartProvider";
+import { useCartContext } from "@/providers/CartProvider";
 import { Product } from "@/lib/types";
 import { useSearchParams } from "next/navigation";
+import { useProductsContext } from "@/providers/ProductsProvider";
 
 interface Filters {
   searchText: string;
@@ -27,29 +28,8 @@ interface Filters {
 
 export default function Home() {
   const searchParams = useSearchParams();
-
   const search = searchParams.get("search");
-
-  const [products] = useState<Product[]>([
-    {
-      id: 0,
-      name: "PS5 Slim New edition",
-      description: "Xbox sucks?",
-      price: 499.99,
-    },
-    {
-      id: 1,
-      name: "MP3 Player",
-      description: "ikr, a MP3 player in 2024?",
-      price: 100,
-    },
-    {
-      id: 2,
-      name: "Brand new headphones",
-      description: "They are brand new.",
-      price: 5.99,
-    },
-  ]);
+  const { products } = useProductsContext();
 
   const [filters, setFilters] = useState<Filters>({
     searchText: search ? search : "",
@@ -88,7 +68,7 @@ export default function Home() {
           .map((product, index) => (
             <ProductCard
               key={index}
-              id={index}
+              id={product.id}
               name={product.name}
               description={product.description}
               price={product.price}
@@ -100,7 +80,7 @@ export default function Home() {
 }
 
 const ProductCard = (product: Product) => {
-  const { addToCart } = useCart();
+  const { addToCart } = useCartContext();
 
   return (
     <Card className="h-fit">
