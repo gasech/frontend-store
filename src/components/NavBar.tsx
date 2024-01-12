@@ -149,6 +149,19 @@ const CartDrawer = () => {
                   </TableRow>
                 ))}
               </TableBody>
+              <TableFooter>
+                <TableRow>
+                  <TableCell colSpan={3} className="text-left">
+                    Total
+                  </TableCell>
+                  <TableCell colSpan={1} className="text-right">
+                    $
+                    {cartItems
+                      .reduce((acc, curr) => acc + curr.price, 0)
+                      .toFixed(2)}
+                  </TableCell>
+                </TableRow>
+              </TableFooter>
             </Table>
           ) : (
             <p className="text-sm text-gray-500">Your cart is empty.</p>
