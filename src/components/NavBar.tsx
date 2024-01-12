@@ -24,7 +24,18 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { signOut, useSession } from "next-auth/react";
+import { useCart } from "@/providers/CartProvider";
 import Image from "next/image";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const NavBar = () => {
   const { data: session } = useSession();
@@ -37,7 +48,7 @@ const NavBar = () => {
       <div className="flex gap-4 items-center">
         <CartDrawer />
         {session ? (
-          <Button variant="outline">
+          <Button variant="default">
             {" "}
             <PlusIcon className="mr-2 w-4 h-4" />{" "}
             <Link href="/add-product">Add Product</Link>
@@ -52,6 +63,85 @@ const NavBar = () => {
         )}
       </div>
     </nav>
+  );
+};
+
+const CartDrawer = () => {
+  const { cartItems, getTotalQuantity, removeFromCart } = useCart();
+
+  return (
+    <Drawer>
+      <DrawerTrigger>
+        <Button variant="outline" asChild>
+          <div>
+            <Image
+              src="/icons/cart.svg"
+              alt="Cart Icon"
+              className="mr-2"
+              width={16}
+              height={16}
+            />
+            <span>Cart - {getTotalQuantity()}</span>
+          </div>
+        </Button>
+      </DrawerTrigger>
+      <DrawerContent>
+        <DrawerHeader>
+          <DrawerTitle className="mx-auto w-1/3">
+            Cart - {getTotalQuantity()}
+          </DrawerTitle>
+          <DrawerDescription></DrawerDescription>
+        </DrawerHeader>
+        <div className="p-4 mx-auto w-1/3 text-center">
+          {cartItems.length > 0 ? (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Name</TableHead>
+                  <TableHead className="text-center">Quantity</TableHead>
+                  <TableHead className="text-right">Unit price</TableHead>
+                  <TableHead className="text-right">Price</TableHead>
+                  <TableHead className="w-32 text-center">Remove</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {cartItems.map((cartItem) => (
+                  <TableRow key={cartItem.id}>
+                    <TableCell className="text-left">{cartItem.name}</TableCell>
+                    <TableCell>{cartItem.quantity}</TableCell>
+                    <TableCell className="text-right">
+                      ${cartItem.price.toFixed(2)}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      ${(cartItem.price * cartItem.quantity).toFixed(2)}
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        onClick={() => removeFromCart(cartItem)}
+                      >
+                        Remove
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
+            <p>Your cart is empty.</p>
+          )}
+        </div>
+        <DrawerFooter>
+          <Button className="mx-auto w-1/3">Checkout</Button>
+          <DrawerClose>
+            <Button variant="outline" className="mx-auto w-1/3">
+              Cancel
+            </Button>
+          </DrawerClose>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
   );
 };
 
@@ -81,46 +171,6 @@ const ProfileDropdown = () => {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-};
-
-const CartDrawer = () => {
-  let cartItems = 0;
-
-  return (
-    <Drawer>
-      <DrawerTrigger>
-        <Button variant="outline" asChild>
-          <div>
-            <Image
-              src="/icons/cart.svg"
-              alt="Cart Icon"
-              className="mr-2"
-              width={16}
-              height={16}
-            />
-            <span>{cartItems}</span>
-          </div>
-        </Button>
-      </DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>Cart</DrawerTitle>
-          <DrawerDescription></DrawerDescription>
-        </DrawerHeader>
-        <div className="p-4 w-full text-center">
-          <p>Your cart is empty.</p>
-        </div>
-        <DrawerFooter>
-          <Button>Checkout</Button>
-          <DrawerClose>
-            <Button variant="outline" className="w-full">
-              Cancel
-            </Button>
-          </DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
   );
 };
 
