@@ -14,6 +14,7 @@ Frontend store is an application that lets you authenticate with Google and GitH
   * [Setting Up Next Auth](#setting-up-next-auth)
   * [Running the application](#running-the-application)
 * [Testing](#testing)
+* [Contribuing](#contribuing)
 
 <!-- vim-markdown-toc -->
 
@@ -110,3 +111,7 @@ bun dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Testing
+Soon.
+
+## Contribuing
+If you feel like contributing to the project please fork the repository, create a branch with the name of your feature, commit your changes and make a pull request.
