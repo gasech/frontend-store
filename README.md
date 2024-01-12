@@ -41,24 +41,24 @@ Frontend store is an application that lets you authenticate with Google and GitH
 This project is using the optional application `src/` folder and the app router feature from Next.js.
 
 ```
- frontend-store
-├──  public
-│  └──  icons
-└──  src
-   ├──  app
-   │  ├──  (auth)
-   │  │  └──  login
-   │  ├──  (routes)
-   │  │  └──  add-product
-   │  └──  api
-   │     └──  auth
-   │        └──  [...nextauth]
-   ├──  components
-   │  ├──  add-product
-   │  ├──  login
-   │  └──  ui
-   ├──  lib
-   └──  providers
+📁frontend-store
+├── 📁public
+│  └── 📁icons
+└── 📁src
+   ├── 📁app
+   │  ├── 📁(auth)
+   │  │  └── 📁login
+   │  ├── 📁(routes)
+   │  │  └── 📁add-product
+   │  └── 📁api
+   │     └── 📁auth
+   │        └── 📁[...nextauth]
+   ├── 📁components
+   │  ├── 📁add-product
+   │  ├── 📁login
+   │  └── 📁ui
+   ├── 📁lib
+   └── 📁providers
 ```
 
 ## Developing 
